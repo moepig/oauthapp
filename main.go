@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/moepig/oauthapp/handlers"
+	"github.com/moepig/oauthapp/handlers/oauth"
 )
 
 func main() {
@@ -13,9 +14,9 @@ func main() {
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	http.HandleFunc("/", handlers.HomeHandler)
-	http.HandleFunc("/auth/login", handlers.LoginHandler)
-	http.HandleFunc("/auth/callback", handlers.CallbackHandler)
-	http.HandleFunc("/settings/oauth", handlers.OAuthSettingsHandler)
+	http.HandleFunc("/oauth/authorize", oauth.AuthorizeHandler)
+	http.HandleFunc("/oauth/callback", oauth.CallbackHandler)
+	http.HandleFunc("/oauth/settings", oauth.SettingsHandler)
 
 	log.Println("Server starting on :8081...")
 	if err := http.ListenAndServe(":8081", nil); err != nil {
