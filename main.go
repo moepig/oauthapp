@@ -6,6 +6,7 @@ import (
 
 	"github.com/moepig/oauthapp/handlers"
 	"github.com/moepig/oauthapp/handlers/oauth"
+	"github.com/moepig/oauthapp/handlers/oidc"
 )
 
 func main() {
@@ -17,6 +18,9 @@ func main() {
 	http.HandleFunc("/oauth/authorize", oauth.AuthorizeHandler)
 	http.HandleFunc("/oauth/callback", oauth.CallbackHandler)
 	http.HandleFunc("/oauth/settings", oauth.SettingsHandler)
+	http.HandleFunc("/oidc/authorize", oidc.AuthorizeHandler)
+	http.HandleFunc("/oidc/callback", oidc.CallbackHandler)
+	http.HandleFunc("/oidc/settings", oidc.SettingsHandler)
 
 	log.Println("Server starting on :8081...")
 	if err := http.ListenAndServe(":8081", nil); err != nil {

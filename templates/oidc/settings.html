@@ -1,0 +1,48 @@
+{{define "title"}}OIDC設定{{end}}
+
+{{define "content"}}
+<h1>OIDC環境変数設定</h1>
+
+<div class="settings-container">
+    <h2>クライアント認証設定</h2>
+
+    <div class="info-item">
+        <span class="label">クライアントID:</span>
+        <div><code>{{.ClientID}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">クライアントシークレット:</span>
+        <div><code>{{.ClientSecret}}</code></div>
+    </div>
+
+    <h2>エンドポイント</h2>
+
+    <div class="info-item">
+        <span class="label">認可URL:</span>
+        <div><code>{{.AuthURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">トークンURL:</span>
+        <div><code>{{.TokenURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">Issuer:</span>
+        <div><code>{{.Issuer}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">JWKS URL:</span>
+        <div><code>{{.JWKSURL}}</code></div>
+    </div>
+
+    <h2>スコープ</h2>
+
+    <div class="info-item">
+        <span class="label">スコープ:</span>
+        <div><code>{{.Scopes}}</code></div>
+    </div>
+</div>
+{{end}}
