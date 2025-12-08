@@ -16,33 +16,78 @@
         <div><code>{{.ClientSecret}}</code></div>
     </div>
 
-    <h2>エンドポイント</h2>
+    <h2>Discovery Endpoint</h2>
 
     <div class="info-item">
-        <span class="label">認可URL:</span>
-        <div><code>{{.AuthURL}}</code></div>
-    </div>
-
-    <div class="info-item">
-        <span class="label">トークンURL:</span>
-        <div><code>{{.TokenURL}}</code></div>
-    </div>
-
-    <div class="info-item">
-        <span class="label">Issuer:</span>
+        <span class="label">Issuer (OIDC_ISSUER):</span>
         <div><code>{{.Issuer}}</code></div>
     </div>
 
     <div class="info-item">
-        <span class="label">JWKS URL:</span>
-        <div><code>{{.JWKSURL}}</code></div>
+        <span class="label">Discovery使用状態:</span>
+        <div>
+            {{if .UsingDiscovery}}
+            <strong style="color: green;">✓ Discovery Endpointから自動取得中</strong>
+            {{else if .Issuer}}
+            <strong style="color: orange;">⚠ 手動設定で上書き中</strong>
+            {{else}}
+            <strong style="color: red;">✗ 手動設定のみ</strong>
+            {{end}}
+        </div>
+    </div>
+
+    <h2>エンドポイント設定</h2>
+
+    <div class="info-item">
+        <span class="label">手動設定 - 認可URL (OIDC_AUTH_URL):</span>
+        <div><code>{{.ManualAuthURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">手動設定 - トークンURL (OIDC_TOKEN_URL):</span>
+        <div><code>{{.ManualTokenURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">実際に使用中 - 認可URL:</span>
+        <div><code>{{.ActualAuthURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">実際に使用中 - トークンURL:</span>
+        <div><code>{{.ActualTokenURL}}</code></div>
+    </div>
+
+    <h2>ID Token検証</h2>
+
+    <div class="info-item">
+        <span class="label">Verifier状態:</span>
+        <div>
+            {{if .VerifierEnabled}}
+            <strong style="color: green;">✓ 有効（ID Token検証可能）</strong>
+            {{else}}
+            <strong style="color: red;">✗ 無効（OIDC_ISSUERを設定してください）</strong>
+            {{end}}
+        </div>
     </div>
 
     <h2>スコープ</h2>
 
     <div class="info-item">
-        <span class="label">スコープ:</span>
+        <span class="label">スコープ (OIDC_SCOPES):</span>
         <div><code>{{.Scopes}}</code></div>
     </div>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background-color: #f0f0f0; border-radius: 4px;">
+    <h3>設定方法</h3>
+    <p><strong>推奨:</strong> OIDC_ISSUERのみを設定（Discovery Endpointから自動取得）</p>
+    <pre style="background-color: white; padding: 0.5rem;">export OIDC_ISSUER="https://accounts.google.com"
+export OIDC_CLIENT_ID="your-client-id"
+export OIDC_CLIENT_SECRET="your-client-secret"</pre>
+
+    <p><strong>手動設定:</strong> すべてのエンドポイントを個別に指定</p>
+    <pre style="background-color: white; padding: 0.5rem;">export OIDC_AUTH_URL="https://..."
+export OIDC_TOKEN_URL="https://..."</pre>
 </div>
 {{end}}
