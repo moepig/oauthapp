@@ -1,0 +1,43 @@
+{{define "title"}}OAuth設定{{end}}
+
+{{define "content"}}
+<h1>OAuth環境変数設定</h1>
+
+<div class="settings-container">
+    <h2>認証設定</h2>
+
+    <div class="info-item">
+        <span class="label">クライアントID:</span>
+        <div><code>{{.ClientID}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">クライアントシークレット:</span>
+        <div><code>{{.ClientSecret}}</code></div>
+    </div>
+
+    <h2>エンドポイント</h2>
+
+    <div class="info-item">
+        <span class="label">認証URL:</span>
+        <div><code>{{.AuthURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">トークンURL:</span>
+        <div><code>{{.TokenURL}}</code></div>
+    </div>
+
+    <div class="info-item">
+        <span class="label">ユーザー情報URL:</span>
+        <div><code>{{.UserInfoURL}}</code></div>
+    </div>
+
+    <h2>スコープ</h2>
+
+    <div class="info-item">
+        <span class="label">スコープ:</span>
+        <div><code>{{.Scopes}}</code></div>
+    </div>
+</div>
+{{end}}
