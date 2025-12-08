@@ -1,7 +1,36 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
     max-width: 800px;
-    margin: 50px auto;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.app-name {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.app-name:hover {
+    color: #ddd;
+}
+
+.main-content {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
 }
 

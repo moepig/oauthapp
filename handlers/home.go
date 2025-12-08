@@ -7,14 +7,16 @@ import (
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	tmplPath := filepath.Join("templates", "index.html")
-	tmpl, err := template.ParseFiles(tmplPath)
+	layoutPath := filepath.Join("templates", "layout.html")
+	indexPath := filepath.Join("templates", "index.html")
+
+	tmpl, err := template.ParseFiles(layoutPath, indexPath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	if err := tmpl.Execute(w, nil); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "layout", nil); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }

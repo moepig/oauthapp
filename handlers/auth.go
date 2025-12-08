@@ -71,8 +71,9 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// ユーザー情報とトークンをテンプレートで表示
+	layoutPath := filepath.Join("templates", "layout.html")
 	tmplPath := filepath.Join("templates", "callback.html")
-	tmpl, err := template.ParseFiles(tmplPath)
+	tmpl, err := template.ParseFiles(layoutPath, tmplPath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -84,7 +85,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 		"TokenType":   token.TokenType,
 	}
 
-	if err := tmpl.Execute(w, data); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "layout", data); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
