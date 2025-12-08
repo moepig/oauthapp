@@ -1,0 +1,24 @@
+{{define "title"}}OIDC認証結果{{end}}
+
+{{define "content"}}
+<h1>OIDC認証成功</h1>
+
+<h2>ID Token クレーム</h2>
+<pre>{{printf "%+v" .Claims}}</pre>
+
+<h2>トークン情報</h2>
+<div>
+    <div class="info-item">
+        <span class="label">トークンタイプ:</span>
+        <span>{{.TokenType}}</span>
+    </div>
+    <div class="info-item">
+        <span class="label">ID Token:</span>
+        <div><code>{{.IDToken}}</code></div>
+    </div>
+    <div class="info-item">
+        <span class="label">アクセストークン:</span>
+        <div><code>{{.AccessToken}}</code></div>
+    </div>
+</div>
+{{end}}
