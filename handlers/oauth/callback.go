@@ -1,4 +1,4 @@
-package handlers
+package oauth
 
 import (
 	"encoding/json"
@@ -6,29 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"strings"
-
-	"golang.org/x/oauth2"
 )
-
-var oauthConf *oauth2.Config
-
-func init() {
-	oauthConf = &oauth2.Config{
-		ClientID:     os.Getenv("OAUTHAPP_CLIENT_ID"),
-		ClientSecret: os.Getenv("OAUTHAPP_CLIENT_SECRET"),
-		Scopes:       strings.Split(os.Getenv("OAUTHAPP_SCOPES"), ","),
-		Endpoint: oauth2.Endpoint{
-			AuthURL:  os.Getenv("OAUTHAPP_AUTH_URL"),
-			TokenURL: os.Getenv("OAUTHAPP_TOKEN_URL"),
-		},
-	}
-}
-
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	url := oauthConf.AuthCodeURL("state", oauth2.AccessTypeOffline)
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
-}
 
 func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	// クエリパラメータから認証コードを取得
@@ -39,14 +17,14 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 認証コードをアクセストークンと交換
-	token, err := oauthConf.Exchange(r.Context(), code)
+	token, err := OAuthConf.Exchange(r.Context(), code)
 	if err != nil {
 		http.Error(w, "Failed to exchange token: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	// トークンを使用してHTTPクライアントを作成
-	client := oauthConf.Client(r.Context(), token)
+	client := OAuthConf.Client(r.Context(), token)
 
 	// ユーザー情報エンドポイントを環境変数から取得
 	userInfoURL := os.Getenv("OAUTHAPP_USERINFO_URL")
@@ -72,7 +50,7 @@ func CallbackHandler(w http.ResponseWriter, r *http.Request) {
 
 	// ユーザー情報とトークンをテンプレートで表示
 	layoutPath := filepath.Join("templates", "layout.html")
-	tmplPath := filepath.Join("templates", "callback.html")
+	tmplPath := filepath.Join("templates", "oauth", "callback.html")
 	tmpl, err := template.ParseFiles(layoutPath, tmplPath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

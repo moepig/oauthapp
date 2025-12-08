@@ -1,4 +1,4 @@
-package handlers
+package oauth
 
 import (
 	"html/template"
@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-// OAuthSettingsHandler はOAuth関連の環境変数を表示するハンドラー
-func OAuthSettingsHandler(w http.ResponseWriter, r *http.Request) {
+// SettingsHandler はOAuth関連の環境変数を表示するハンドラー
+func SettingsHandler(w http.ResponseWriter, r *http.Request) {
 	// OAuth関連の環境変数を取得
 	settings := map[string]interface{}{
 		"ClientID":     os.Getenv("OAUTHAPP_CLIENT_ID"),
@@ -23,7 +23,7 @@ func OAuthSettingsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// テンプレートを読み込み
 	layoutPath := filepath.Join("templates", "layout.html")
-	tmplPath := filepath.Join("templates", "settings", "oauth.html")
+	tmplPath := filepath.Join("templates", "oauth", "settings.html")
 	tmpl, err := template.ParseFiles(layoutPath, tmplPath)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
