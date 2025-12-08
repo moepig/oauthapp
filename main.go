@@ -8,6 +8,10 @@ import (
 )
 
 func main() {
+	// 静的ファイルの配信設定
+	fs := http.FileServer(http.Dir("assets"))
+	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
+
 	http.HandleFunc("/", handlers.HomeHandler)
 	http.HandleFunc("/auth/login", handlers.LoginHandler)
 	http.HandleFunc("/auth/callback", handlers.CallbackHandler)
