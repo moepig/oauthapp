@@ -67,6 +67,7 @@ func init() {
 	OIDCConfig = &oauth2.Config{
 		ClientID:     clientID,
 		ClientSecret: clientSecret,
+		RedirectURL:  os.Getenv("OIDC_REDIRECT_URL"),
 		Scopes:       strings.Split(scopes, ","),
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  authURL,

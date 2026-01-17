@@ -28,6 +28,7 @@ func SettingsHandler(w http.ResponseWriter, r *http.Request) {
 	settings := map[string]interface{}{
 		"ClientID":        os.Getenv("OIDC_CLIENT_ID"),
 		"ClientSecret":    maskSecret(os.Getenv("OIDC_CLIENT_SECRET")),
+		"RedirectURL":     os.Getenv("OIDC_REDIRECT_URL"),
 		"Scopes":          os.Getenv("OIDC_SCOPES"),
 		"Issuer":          issuer,
 		"ManualAuthURL":   manualAuthURL,

@@ -14,6 +14,7 @@ func SettingsHandler(w http.ResponseWriter, r *http.Request) {
 	settings := map[string]interface{}{
 		"ClientID":     os.Getenv("OAUTHAPP_CLIENT_ID"),
 		"ClientSecret": maskSecret(os.Getenv("OAUTHAPP_CLIENT_SECRET")),
+		"RedirectURL":  os.Getenv("OAUTHAPP_REDIRECT_URL"),
 		"Scopes":       os.Getenv("OAUTHAPP_SCOPES"),
 		"ScopesList":   strings.Split(os.Getenv("OAUTHAPP_SCOPES"), ","),
 		"AuthURL":      os.Getenv("OAUTHAPP_AUTH_URL"),
